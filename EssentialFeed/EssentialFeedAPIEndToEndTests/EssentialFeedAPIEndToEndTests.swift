@@ -35,8 +35,8 @@ class EssentialFeedAPIEndToEndTests: XCTestCase {
         let client = URLSessionHTTPClient()
         let loader = RemoteFeedLoader(url: testServerURL, client: client)
         
-        trackForMemoryLeaks(instance: client, file: file, line: line)
-        trackForMemoryLeaks(instance: loader, file: file, line: line)
+        trackForMemoryLeaks(client, file: file, line: line)
+        trackForMemoryLeaks(loader, file: file, line: line)
         
         let exp = expectation(description: "Wait for load completion")
         var receiveredResult: LoadFeedResult?
