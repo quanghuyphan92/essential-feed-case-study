@@ -174,11 +174,11 @@ class URLSessionHTTPClientTest: XCTestCase {
         }
         
         override class func canInit(with request: URLRequest) -> Bool {
+            requestObserver?(request)
             return true
         }
         
         override class func canonicalRequest(for request: URLRequest) -> URLRequest {
-            requestObserver?(request)
             return request
         }
         
