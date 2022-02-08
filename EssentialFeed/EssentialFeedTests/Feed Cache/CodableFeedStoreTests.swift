@@ -174,7 +174,12 @@ class CodableFeedStoreTests: XCTestCase {
     
     private func deleteCache(from sut: FeedStore) -> Error? {
         var deletionError: Error? = nil
-        sut.deleteCachedFeed { deletionError = $0 }
+        let exp = expectation(description: "Wait for deletion")
+        sut.deleteCachedFeed { error in
+            deletionError = error
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 20.0)
         return deletionError
     }
     
