@@ -166,6 +166,7 @@
 			children = (
 				516D525E2793BC6A00AD1206 /* Helpers */,
 				51A6FDC62792744F00117FE3 /* CacheFeedUseCaseTests.swift */,
+				511685E02769D74B00628509 /* EssentialFeedAPIEndToEndTests */,
 				516D52592793BB1100AD1206 /* LoadFeedFromCacheUseCaseTests.swift */,
 				51C91F352794185000052941 /* ValidateFeedCacheUseCaseTests.swift */,
 				51C91F502798159E00052941 /* CodableFeedStoreTests.swift */,
@@ -190,7 +191,6 @@
 			children = (
 				51C3594F273A23050020E268 /* EssentialFeed */,
 				51C3595A273A23050020E268 /* EssentialFeedTests */,
-				511685E02769D74B00628509 /* EssentialFeedAPIEndToEndTests */,
 				51C3594E273A23050020E268 /* Products */,
 			);
 			sourceTree = "<group>";

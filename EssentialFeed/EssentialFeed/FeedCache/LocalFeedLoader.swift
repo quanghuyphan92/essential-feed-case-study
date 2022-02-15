@@ -12,7 +12,7 @@ public class LocalFeedLoader {
     private let currentDate: () -> Date
     
     public typealias SaveResult = Error?
-    public typealias LoadResult = LoadFeedResult
+    public typealias LoadResult = FeedLoader.Result
     
     public init(store: FeedStore, currentDate: @escaping () -> Date) {
         self.store = store
@@ -45,13 +45,10 @@ public class LocalFeedLoader {
             case .failure(let error):
                 completion(.failure(error))
                 
-            case let .found(feed, timestamp) where FeedCachePolicy.validate(timestamp, against: self.currentDate()):
-                completion(.success(feed.toModels()))
+            case let .success(.some(cachedFeed)) where FeedCachePolicy.validate(cachedFeed.timestamp, against: self.currentDate()):
+                completion(.success(cachedFeed.feed.toModels()))
                 
-            case .found:
-                completion(.success([]))
-                
-            case .empty:
+            case .success:
                 completion(.success([]))
             }
         }
@@ -62,7 +59,7 @@ public class LocalFeedLoader {
             switch result {
             case .failure:
                 self.store.deleteCachedFeed { _ in }
-            case let .found(_, timestamp) where !FeedCachePolicy.validate(timestamp, against: self.currentDate()):
+            case let .success(.some(cachedFeed)) where !FeedCachePolicy.validate(cachedFeed.timestamp, against: self.currentDate()):
                 self.store.deleteCachedFeed { _ in }
             default:
                 break
